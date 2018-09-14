@@ -25,3 +25,8 @@ export function addToFavoritesAPI(image_id) {
 export function fetchFavoritesAPI() {
   return axios.get(`${catURL}/favourites`);
 }
+
+
+export function removeFavoriteAPI(favorite_id) {
+  return axios.delete(`${catURL}/favourites/${favorite_id}`);
+}
