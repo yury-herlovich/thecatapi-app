@@ -30,3 +30,20 @@ main > section {
   padding: 20px;
 }
 
+.image-container {
+  display: flex;
+  margin: 10px 0;
+  align-items: center;
+}
+
+.image-item {
+  width: 500px;
+}
+
+.image-item img {
+  max-width: 500px;
+}
+
+.image-action {
+  padding: 0 20px;
+}

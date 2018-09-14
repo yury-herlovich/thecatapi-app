@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchImages as fetchImagesAPI } from '../api/ImagesAPI';
+import { fetchImagesAPI, addToFavoritesAPI } from '../api/ImagesAPI';
 
 import Image from './ImageItem';
 
@@ -11,6 +11,8 @@ class ImagesView extends Component {
       page: 0,
       images: []
     }
+
+    this.addToFavorites = this.addToFavorites.bind(this);
   }
 
   render() {
@@ -19,10 +21,19 @@ class ImagesView extends Component {
         <header><h1>Images</h1></header>
         { this.state.images.length > 0 &&
           this.state.images.map((item, ind) => {
-            return <Image url={item.url} key={ind} />;
+            return (
+              <div className='image-container' key={ind}>
+                <Image url={item.url}/>
+                <div className='image-action'>
+                  {!item.isFavorite ?
+                    <a href="" onClick={(e) => this.addToFavorites(e, item.id)}>Add to Favorites</a> :
+                    'In Favorites'
+                  }
+                </div>
+              </div>
+            );
           })
         }
-
       </section>
     )
   }
@@ -37,6 +48,34 @@ class ImagesView extends Component {
       this.setState({ images: this.state.images.concat(res.data) });
     })
     .catch((err) => console.log(err));
+  }
+
+  addToFavorites(e, id) {
+    e.preventDefault();
+
+    addToFavoritesAPI(id)
+      .then((res) => {
+        // find the image in state
+        let imageInd;
+        this.state.images.forEach((item, ind) => {
+          if (item.id !== id) {
+            return;
+          }
+
+          imageInd = ind;
+        });
+
+        if (imageInd === undefined) {
+          return;
+        }
+
+        // add property isFavorite
+        let images = [...this.state.images];
+        images[imageInd].isFavorite = true;
+
+        this.setState({images});
+      })
+      .catch((err) => console.log(err));
   }
 }
 
