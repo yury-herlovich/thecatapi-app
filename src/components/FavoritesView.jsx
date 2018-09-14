@@ -52,7 +52,16 @@ class FavoritesView extends Component {
 
             this.setState({images: this.state.images.concat(image_data)});
           })
-          .catch((err) => console.log(err.response.data.message));
+          // .catch((err) => console.log(err.response));
+          .catch((err) => {
+            let image = {
+              url: undefined,
+              id: item.image_id,
+              favorite_id: item.id
+            }
+
+            this.setState({images: this.state.images.concat(image)});
+          });
       });
     } catch(e) {
       return console.log(e);
@@ -69,8 +78,6 @@ class FavoritesView extends Component {
         this.setState({images});
       })
       .catch((err) => console.log(err));
-
-    console.log(favorite_id);
   }
 }
 
