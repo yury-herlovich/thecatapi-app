@@ -21,3 +21,12 @@ nav a {
 nav a:hover {
   text-decoration: underline;
 }
+
+main {
+  padding-left: 200px;
+}
+
+main > section {
+  padding: 20px;
+}
+
