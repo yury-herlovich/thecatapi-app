@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import Menu from './components/Menu';
-import Images from './components/Images';
-import Favorites from './components/Favorites';
+import ImagesView from './components/ImagesView';
+import FavoritesView from './components/FavoritesView';
 import './App.css';
 
 class App extends Component {
@@ -15,8 +15,8 @@ class App extends Component {
             <Menu/>
           </aside>
           <main>
-            <Route path="/images" component={Images}/>
-            <Route path="/favorites" component={Favorites}/>
+            <Route path="/images" component={ImagesView}/>
+            <Route path="/favorites" component={FavoritesView}/>
           </main>
         </div>
       </BrowserRouter>
