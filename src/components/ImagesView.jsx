@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchImagesAPI, addToFavoritesAPI } from '../api/ImagesAPI';
+import { fetchImagesAPI, addToFavoritesAPI } from '../api/ThecatAPI';
 
 import Image from './ImageItem';
 
@@ -19,6 +19,7 @@ class ImagesView extends Component {
     return (
       <section>
         <header><h1>Images</h1></header>
+
         { this.state.images.length > 0 &&
           this.state.images.map((item, ind) => {
             return (
