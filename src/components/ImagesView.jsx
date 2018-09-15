@@ -10,10 +10,13 @@ class ImagesView extends Component {
 
     this.state = {
       page: 0,
-      images: []
+      images: [],
+      isLoading: false
     }
 
     this.addToFavorites = this.addToFavorites.bind(this);
+    this.onScroll = this.onScroll.bind(this);
+    this.timeout = null;
   }
 
   render() {
@@ -31,12 +34,15 @@ class ImagesView extends Component {
             </div>
           ))
         }
+
+        { this.state.isLoading && <div>...loading</div> }
       </section>
     )
   }
 
   componentDidMount() {
-    this.fetchImages();
+    this.fetchImages(this.state.page);
+    window.addEventListener('scroll', this.onScroll, false);
   }
 
   addToFavorites(e, id) {
@@ -67,12 +73,36 @@ class ImagesView extends Component {
       .catch((err) => console.log(err));
   }
 
-  fetchImages() {
-    fetchImagesAPI(this.state.page)
+  fetchImages(page) {
+    if (this.state.isLoading) {
+      return;
+    }
+
+    this.setState({isLoading: true});
+
+    fetchImagesAPI(page)
     .then((res) => {
       this.setState({ images: this.state.images.concat(res.data) });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .finally(() => this.setState({isLoading: false}));
+  }
+
+  onScroll() {
+    if (this.state.images.length === 0 || this.state.isLoading) {
+      return;
+    }
+
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+
+    this.timeout = setTimeout(()=>{
+      if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 300)) {
+        this.setState({page: this.state.page + 1});
+        this.fetchImages(this.state.page);
+      }
+    }, 150);
   }
 }
 

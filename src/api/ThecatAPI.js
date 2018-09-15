@@ -3,10 +3,11 @@ import axios from 'axios';
 require('../config/axios');
 
 const catURL = 'https://api.thecatapi.com/v1';
-const limit = 10;
+const limit = 5;
+const order = 'DESC';
 
 export function fetchImagesAPI(page = 0) {
-  return axios.get(`${catURL}/images/search?page=${page}&limit=${limit}`);
+  return axios.get(`${catURL}/images/search?page=${page}&limit=${limit}&order=${order}`);
 }
 
 
