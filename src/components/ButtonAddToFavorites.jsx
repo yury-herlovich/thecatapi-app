@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ButtonAddToFavorites = ({ onClick, isFavorite }) => (
   <div className='image-action'>
@@ -7,6 +8,11 @@ const ButtonAddToFavorites = ({ onClick, isFavorite }) => (
       'In Favorites'
     }
   </div>
-)
+);
+
+ButtonAddToFavorites.proptypes = {
+  onClick: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool.isRequired
+};
 
 export default ButtonAddToFavorites;
