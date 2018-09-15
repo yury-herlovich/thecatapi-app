@@ -23,12 +23,11 @@ class ImagesView extends Component {
 
         { this.state.images.length > 0 &&
           this.state.images.map((item, ind) => (
-            <div className='image-container' key={ind}>
+            <div className='image-container' key={item.id}>
               <Image url={item.url}/>
               <ButtonAddToFavorites
-                id={item.id}
                 isFavorite={item.isFavorite || false}
-                onClickHandler={this.addToFavorites} />
+                onClick={(e) => this.addToFavorites(e, item.id)} />
             </div>
           ))
         }

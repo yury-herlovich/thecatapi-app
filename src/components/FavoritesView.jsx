@@ -22,11 +22,10 @@ class FavoritesView extends Component {
 
         { this.state.images.length > 0 &&
           this.state.images.map((item, ind) => (
-            <div className='image-container' key={ind}>
+            <div className='image-container' key={item.favorite_id}>
               <Image url={item.url}/>
               <ButtonRemoveFromFavorites
-                favorite_id={item.favorite_id}
-                onClickHandler={this.removeFromFavorites} />
+                onClick={(e) => this.removeFromFavorites(e, item.favorite_id)} />
             </div>
           ))
         }
