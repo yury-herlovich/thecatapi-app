@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { fetchImagesAPI, addToFavoritesAPI } from '../api/ThecatAPI';
 
 import Image from './ImageItem';
+import ButtonAddToFavorites from './ButtonAddToFavorites';
 
 class ImagesView extends Component {
   constructor() {
@@ -21,19 +22,15 @@ class ImagesView extends Component {
         <header><h1>Images</h1></header>
 
         { this.state.images.length > 0 &&
-          this.state.images.map((item, ind) => {
-            return (
-              <div className='image-container' key={ind}>
-                <Image url={item.url}/>
-                <div className='image-action'>
-                  {!item.isFavorite ?
-                    <a href="" onClick={(e) => this.addToFavorites(e, item.id)}>Add to Favorites</a> :
-                    'In Favorites'
-                  }
-                </div>
-              </div>
-            );
-          })
+          this.state.images.map((item, ind) => (
+            <div className='image-container' key={ind}>
+              <Image url={item.url}/>
+              <ButtonAddToFavorites
+                id={item.id}
+                isFavorite={item.isFavorite || false}
+                onClickHandler={this.addToFavorites} />
+            </div>
+          ))
         }
       </section>
     )
@@ -41,14 +38,6 @@ class ImagesView extends Component {
 
   componentDidMount() {
     this.fetchImages();
-  }
-
-  fetchImages() {
-    fetchImagesAPI(this.state.page)
-    .then((res) => {
-      this.setState({ images: this.state.images.concat(res.data) });
-    })
-    .catch((err) => console.log(err));
   }
 
   addToFavorites(e, id) {
@@ -77,6 +66,14 @@ class ImagesView extends Component {
         this.setState({images});
       })
       .catch((err) => console.log(err));
+  }
+
+  fetchImages() {
+    fetchImagesAPI(this.state.page)
+    .then((res) => {
+      this.setState({ images: this.state.images.concat(res.data) });
+    })
+    .catch((err) => console.log(err));
   }
 }
 
