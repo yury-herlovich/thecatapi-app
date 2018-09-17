@@ -1,5 +1,6 @@
 # Implementation of TheCatAPI
 Build with [React.js](https://reactjs.org)
+
 [Demo](https://thecatapi-app.herokuapp.com/images)
 
 ### Features
@@ -18,4 +19,4 @@ Build with [React.js](https://reactjs.org)
 ```
     REACT_APP_API_KEY={YOUR_KEY}
 ```
-* Run `npm start` to build and start application.
+* Run `npm run start-js` to start application.
