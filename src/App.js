@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import Menu from './components/Menu';
 import ImagesView from './components/ImagesView';
@@ -14,6 +14,9 @@ class App extends Component {
             <Menu/>
           </aside>
           <main>
+            <Route exact path="/" render={() => (
+              <Redirect to="/images"/>
+            )}/>
             <Route path="/images" component={ImagesView}/>
             <Route path="/favorites" component={FavoritesView}/>
           </main>
