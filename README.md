@@ -13,4 +13,8 @@ Build with [React.js](https://reactjs.org)
     cd thecatapi-app
 ```
 * Run `npm install` to install node dependencies.
+* Create file .env.local with API key
+```
+    REACT_APP_API_KEY={YOUR_KEY}
+```
 * Run `npm start` to build and start application.
