@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import Menu from './components/Menu';
 import ImagesView from './components/ImagesView';
@@ -9,7 +9,6 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
         <div className="App">
           <aside>
             <Menu/>
@@ -19,7 +18,6 @@ class App extends Component {
             <Route path="/favorites" component={FavoritesView}/>
           </main>
         </div>
-      </BrowserRouter>
     );
   }
 }

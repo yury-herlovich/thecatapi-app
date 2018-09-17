@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { fetchImagesAPI, addToFavoritesAPI } from '../api/ThecatAPI';
+import { connect } from 'react-redux';
+import {
+  getImages as getImagesAction,
+  setLoading,
+  addToFavorites,
+  resetImageStore,
+  incrementImagePage
+} from '../actions';
 
 import Image from './ImageItem';
 import ButtonAddToFavorites from './ButtonAddToFavorites';
@@ -10,7 +17,6 @@ class ImagesView extends Component {
 
     this.state = {
       page: 0,
-      images: [],
       isLoading: false
     }
 
@@ -24,8 +30,8 @@ class ImagesView extends Component {
       <section>
         <header><h1>Images</h1></header>
 
-        { this.state.images.length > 0 &&
-          this.state.images.map((item, ind) => (
+        { this.props.images.length > 0 &&
+          this.props.images.map((item, ind) => (
             <div className='image-container' key={item.id}>
               <Image url={item.url}/>
               <ButtonAddToFavorites
@@ -35,61 +41,39 @@ class ImagesView extends Component {
           ))
         }
 
-        { this.state.isLoading && <div>...loading</div> }
+        { this.props.isLoading && <div>...loading</div> }
       </section>
     )
   }
 
   componentDidMount() {
-    this.fetchImages(this.state.page);
+    this.getImages();
     window.addEventListener('scroll', this.onScroll, false);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+    this.props.resetImageStore();
   }
 
   addToFavorites(e, id) {
     e.preventDefault();
-
-    addToFavoritesAPI(id)
-      .then((res) => {
-        // find the image in state
-        let imageInd;
-        this.state.images.forEach((item, ind) => {
-          if (item.id !== id) {
-            return;
-          }
-
-          imageInd = ind;
-        });
-
-        if (imageInd === undefined) {
-          return;
-        }
-
-        // add property isFavorite
-        let images = [...this.state.images];
-        images[imageInd].isFavorite = true;
-
-        this.setState({images});
-      })
-      .catch((err) => console.log(err));
+    this.props.addToFavorites(id);
   }
 
-  fetchImages(page) {
-    if (this.state.isLoading) {
+  getImages() {
+    if (this.props.isLoading) {
       return;
     }
 
-    this.setState({isLoading: true});
+    this.props.setLoading(true);
 
-    fetchImagesAPI(page)
-    .then((res) => {
-      this.setState({ images: this.state.images.concat(res.data) });
-    })
-    .catch((err) => console.log(err))
-    .finally(() => this.setState({isLoading: false}));
+    this.props.getImagesAction
+(this.props.page);
   }
 
   onScroll() {
-    if (this.state.images.length === 0 || this.state.isLoading) {
+    if (this.props.images.length === 0 || this.props.isLoading) {
       return;
     }
 
@@ -99,11 +83,23 @@ class ImagesView extends Component {
 
     this.timeout = setTimeout(()=>{
       if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 300)) {
-        this.setState({page: this.state.page + 1});
-        this.fetchImages(this.state.page);
+        this.props.incrementImagePage();
+        this.getImages();
       }
-    }, 150);
+    }, 100);
   }
 }
 
-export default ImagesView;
+const mapStateToProps = state => ({
+  images: state.images.images,
+  isLoading: state.images.isLoading,
+  page: state.images.page
+});
+
+export default connect(mapStateToProps, {
+  setLoading,
+  getImagesAction,
+  addToFavorites,
+  resetImageStore,
+  incrementImagePage
+})(ImagesView);
