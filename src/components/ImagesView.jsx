@@ -15,11 +15,6 @@ class ImagesView extends Component {
   constructor() {
     super();
 
-    this.state = {
-      page: 0,
-      isLoading: false
-    }
-
     this.addToFavorites = this.addToFavorites.bind(this);
     this.onScroll = this.onScroll.bind(this);
     this.timeout = null;
@@ -68,8 +63,7 @@ class ImagesView extends Component {
 
     this.props.setLoading(true);
 
-    this.props.getImagesAction
-(this.props.page);
+    this.props.getImagesAction(this.props.page);
   }
 
   onScroll() {

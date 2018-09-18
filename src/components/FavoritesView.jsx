@@ -11,11 +11,7 @@ import ButtonRemoveFromFavorites from './ButtonRemoveFromFavorites';
 
 class FavoritesView extends Component {
   constructor() {
-    super()
-
-    this.state = {
-      images: []
-    }
+    super();
 
     this.removeFavorite = this.removeFavorite.bind(this);
   }
