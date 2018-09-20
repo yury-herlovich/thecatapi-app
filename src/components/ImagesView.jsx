@@ -10,6 +10,7 @@ import {
 
 import Image from './ImageItem';
 import ButtonAddToFavorites from './ButtonAddToFavorites';
+import LoadingAnimation from './LoadingAnimation';
 
 export class ImagesView extends Component {
   constructor() {
@@ -36,7 +37,7 @@ export class ImagesView extends Component {
           ))
         }
 
-        { this.props.isLoading && <div>...loading</div> }
+        <LoadingAnimation isLoading={this.props.isLoading}/>
       </section>
     )
   }
