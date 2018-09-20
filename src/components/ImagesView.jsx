@@ -11,7 +11,7 @@ import {
 import Image from './ImageItem';
 import ButtonAddToFavorites from './ButtonAddToFavorites';
 
-class ImagesView extends Component {
+export class ImagesView extends Component {
   constructor() {
     super();
 
