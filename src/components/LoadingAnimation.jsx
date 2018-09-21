@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const LoadingAnimation = ({ isLoading }) => (
-  isLoading ? <div>...loading</div> : <div></div>
+  isLoading ? <div>...loading</div> : null
 );
 
 LoadingAnimation.propTypes = {
