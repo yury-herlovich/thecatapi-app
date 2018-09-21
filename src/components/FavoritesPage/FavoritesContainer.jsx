@@ -6,8 +6,7 @@ import {
   removeFromFavorites
 } from '../../actions';
 
-import Image from '../ImageItem';
-import ButtonRemoveFromFavorites from '../ButtonRemoveFromFavorites';
+import FavoritesList from './FavoritesList';
 
 class FavoritesView extends Component {
   constructor() {
@@ -21,15 +20,7 @@ class FavoritesView extends Component {
       <section>
         <header><h1>Favorites</h1></header>
 
-        { this.props.images.length > 0 &&
-          this.props.images.map((item, ind) => (
-            <div className='image-container' key={item.favorite_id}>
-              <Image url={item.url}/>
-              <ButtonRemoveFromFavorites
-                onClick={(e) => this.removeFavorite(e, item.favorite_id)} />
-            </div>
-          ))
-        }
+        <FavoritesList images={this.props.images} removeFavorite={this.removeFavorite} />
       </section>
     )
   }

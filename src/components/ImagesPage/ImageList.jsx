@@ -21,7 +21,7 @@ ImageList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       url: PropTypes.string.isRequired,
-      isFavorite: PropTypes.bool.isRequired
+      isFavorite: PropTypes.bool
     }).isRequired
   ).isRequired,
   addToFavorites: PropTypes.func.isRequired

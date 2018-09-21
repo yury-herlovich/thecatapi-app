@@ -3,7 +3,7 @@ import { Route, Redirect, BrowserRouter } from 'react-router-dom';
 
 import Menu from './components/Menu';
 import ImagesContainer from './components/ImagesPage/ImagesContainer';
-import FavoritesView from './components/FavoritesPage/FavoritesView';
+import FavoritesContainer from './components/FavoritesPage/FavoritesContainer';
 import './App.css';
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
               <Redirect to="/images"/>
             )}/>
             <Route path="/images" component={ImagesContainer}/>
-            <Route path="/favorites" component={FavoritesView}/>
+            <Route path="/favorites" component={FavoritesContainer}/>
           </main>
         </div>
       </BrowserRouter>
