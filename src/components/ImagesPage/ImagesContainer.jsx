@@ -6,13 +6,12 @@ import {
   addToFavorites,
   resetImageStore,
   incrementImagePage
-} from '../actions';
+} from '../../actions';
 
-import Image from './ImageItem';
-import ButtonAddToFavorites from './ButtonAddToFavorites';
-import LoadingAnimation from './LoadingAnimation';
+import ImageList from './ImageList';
+import LoadingAnimation from '../LoadingAnimation';
 
-export class ImagesView extends Component {
+export class ImagesContainer extends Component {
   constructor() {
     super();
 
@@ -25,18 +24,7 @@ export class ImagesView extends Component {
     return (
       <section>
         <header><h1>Images</h1></header>
-
-        { this.props.images.length > 0 &&
-          this.props.images.map((item, ind) => (
-            <div className='image-container' key={item.id}>
-              <Image url={item.url}/>
-              <ButtonAddToFavorites
-                isFavorite={item.isFavorite || false}
-                onClick={(e) => this.addToFavorites(e, item.id)} />
-            </div>
-          ))
-        }
-
+        <ImageList images={this.props.images} addToFavorites={this.addToFavorites} />
         <LoadingAnimation isLoading={this.props.isLoading}/>
       </section>
     )
@@ -97,4 +85,4 @@ export default connect(mapStateToProps, {
   addToFavorites,
   resetImageStore,
   incrementImagePage
-})(ImagesView);
+})(ImagesContainer);

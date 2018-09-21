@@ -4,10 +4,10 @@ import {
   getFavorites,
   resetFavorites,
   removeFromFavorites
-} from '../actions';
+} from '../../actions';
 
-import Image from './ImageItem';
-import ButtonRemoveFromFavorites from './ButtonRemoveFromFavorites';
+import Image from '../ImageItem';
+import ButtonRemoveFromFavorites from '../ButtonRemoveFromFavorites';
 
 class FavoritesView extends Component {
   constructor() {

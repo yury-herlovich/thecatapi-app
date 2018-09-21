@@ -6,7 +6,7 @@ const LoadingAnimation = ({ isLoading }) => (
 );
 
 LoadingAnimation.propTypes = {
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool.isRequired
 };
 
 export default LoadingAnimation;
