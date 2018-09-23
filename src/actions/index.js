@@ -2,18 +2,20 @@ import axios from 'axios'
 
 require('../config/axios');
 
-const catURL = 'https://api.thecatapi.com/v1';
-const limit = 5;
-const order = 'DESC';
+export const catURL = 'https://api.thecatapi.com/v1';
+export const limit = 5;
+export const order = 'DESC';
 
 export function getImages (page) {
   return (dispatch) => {
-    axios.get(`${catURL}/images/search?page=${page}&limit=${limit}&order=${order}`)
-      .then((res) => {
-        dispatch({type: 'GET_IMAGES', images: res.data});
-        dispatch({type: 'IS_LOADING', isLoading: false});
-      })
-      .catch((err) => console.log(err));
+    return (
+      axios.get(`${catURL}/images/search?page=${page}&limit=${limit}&order=${order}`)
+        .then((res) => {
+          dispatch({type: 'GET_IMAGES', images: res.data});
+          dispatch({type: 'IS_LOADING', isLoading: false});
+        })
+        .catch((err) => console.log(err))
+      );
   }
 }
 

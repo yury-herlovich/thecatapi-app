@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
   images: [],
   isLoading: false,
   page: 0
