@@ -1,4 +1,5 @@
 import axios from 'axios'
+import * as actionTypes from '../constants/ActionTypes';
 
 require('../config/axios');
 
@@ -11,8 +12,8 @@ export function getImages (page) {
     return (
       axios.get(`${catURL}/images/search?page=${page}&limit=${limit}&order=${order}`)
         .then((res) => {
-          dispatch({type: 'GET_IMAGES', images: res.data});
-          dispatch({type: 'IS_LOADING', isLoading: false});
+          dispatch({type: actionTypes.GET_IMAGES, images: res.data});
+          dispatch({type: actionTypes.IS_LOADING, isLoading: false});
         })
         .catch((err) => console.log(err))
       );
@@ -20,25 +21,25 @@ export function getImages (page) {
 }
 
 export function resetImageStore() {
-  return { type: 'RESET_IMAGE_STORE' };
+  return { type: actionTypes.RESET_IMAGE_STORE };
 }
 
 export function setLoading (isLoading) {
   return {
-    type: 'IS_LOADING',
+    type: actionTypes.IS_LOADING,
     isLoading
   }
 }
 
 export function incrementImagePage () {
-  return { type: 'INCREMENT_IMAGE_PAGE' }
+  return { type: actionTypes.INCREMENT_IMAGE_PAGE }
 }
 
 export function addToFavorites (image_id) {
   return (dispatch) => {
     axios.post(`${catURL}/favourites`, { image_id })
       .then((res) => {
-        dispatch({type: 'MAKE_FAVORITE', image_id});
+        dispatch({type: actionTypes.MAKE_FAVORITE, image_id});
       })
       .catch((err) => console.log(err));
   }
@@ -51,7 +52,7 @@ export function getFavorites() {
         res.data.forEach((item) => {
           axios.get(`${catURL}/images/${item.image_id}`)
             .then((imageRes) => {
-              dispatch({type: 'GET_FAVORITE', image: {
+              dispatch({type: actionTypes.GET_FAVORITE, image: {
                 ...imageRes.data,
                 favorite_id: item.id
               }});
@@ -67,12 +68,12 @@ export function removeFromFavorites(favorite_id) {
   return (dispatch) => {
     axios.delete(`${catURL}/favourites/${favorite_id}`)
       .then((res) => {
-        dispatch({type: 'REMOVE_FROM_FAVORITES', favorite_id});
+        dispatch({type: actionTypes.REMOVE_FROM_FAVORITES, favorite_id});
       })
       .catch((err) => console.log(err));
   }
 }
 
 export function resetFavorites() {
-  return { type: 'RESET_FAVORITES' };
+  return { type: actionTypes.RESET_FAVORITES };
 }

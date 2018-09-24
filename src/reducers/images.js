@@ -1,3 +1,5 @@
+import * as actionTypes from '../constants/ActionTypes';
+
 export const initialState = {
   images: [],
   isLoading: false,
@@ -6,28 +8,28 @@ export const initialState = {
 
 export default (state=initialState, action) => {
   switch (action.type) {
-    case 'GET_IMAGES':
+    case actionTypes.GET_IMAGES:
       return {
         ...state,
         images: state.images.concat(action.images)
       }
-    case 'RESET_IMAGE_STORE':
+    case actionTypes.RESET_IMAGE_STORE:
       return {
         ...state,
         images: [],
         page: 0
       }
-    case 'IS_LOADING':
+    case actionTypes.IS_LOADING:
       return {
         ...state,
         isLoading: action.isLoading
       }
-    case 'INCREMENT_IMAGE_PAGE':
+    case actionTypes.INCREMENT_IMAGE_PAGE:
       return {
         ...state,
         page: state.page + 1
       }
-    case 'MAKE_FAVORITE':
+    case actionTypes.MAKE_FAVORITE:
       return {
         ...state,
         images: state.images.map((item) => {
