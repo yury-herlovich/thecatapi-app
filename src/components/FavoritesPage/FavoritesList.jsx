@@ -18,8 +18,8 @@ const FavoritesList = ({ images, removeFavorite }) => (
 FavoritesList.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
+      favorite_id: PropTypes.number.isRequired,
+      url: PropTypes.string,
       isFavorite: PropTypes.bool
     }).isRequired
   ).isRequired,

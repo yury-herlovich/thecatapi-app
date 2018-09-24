@@ -8,11 +8,11 @@ describe('<FavoritesList />', () => {
     const props = {
       images: [
         {
-          id: '1a',
+          favorite_id: 1,
           url: 'test.jpg',
         },
         {
-          id: '2b',
+          favorite_id: 2,
           url: 'test.jpg',
         }
       ],

@@ -122,6 +122,43 @@ describe('actions Favorites', () => {
     store.clearActions();
   });
 
+
+  // it('get favorites', () => {
+  //   const favorite_id = 1;
+  //   const image_id = '3a';
+
+  //   const responseGetFavorites = [{
+  //     id: favorite_id,
+  //     user_id: "2a",
+  //     image_id
+  //   }];
+
+  //   const responseGetImage = {
+  //     id: image_id,
+  //     url: "http://localhost/test.jpg"
+  //   };
+
+  //   const expectedActions = [
+  //     {
+  //       type: actionTypes.GET_FAVORITE,
+  //       image: {
+  //         ...responseGetImage,
+  //         favorite_id
+  //       }
+  //     }
+  //   ];
+
+  //   mock
+  //     .onGet(`${actions.catURL}/favourites`).reply(200, responseGetFavorites)
+  //     .onGet(`${actions.catURL}/images/${image_id}`).reply(200, responseGetImage);
+
+  //   return store.dispatch(actions.getFavorites())
+  //     .then(() => {
+  //       expect(store.getActions()).toEqual(expectedActions);
+  //   });
+  // });
+
+
   it('remove from favorites', () => {
     const favorite_id = 1;
 

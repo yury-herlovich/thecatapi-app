@@ -13,7 +13,7 @@ export function getImages (page) {
       axios.get(`${catURL}/images/search?page=${page}&limit=${limit}&order=${order}`)
         .then((res) => {
           dispatch({type: actionTypes.GET_IMAGES, images: res.data});
-          dispatch({type: actionTypes.IS_LOADING, isLoading: false});
+          dispatch(setLoading(false));
         })
         .catch((err) => console.log(err))
       );
@@ -47,22 +47,40 @@ export function addToFavorites (image_id) {
 
 export function getFavorites() {
   return (dispatch) => {
-    axios.get(`${catURL}/favourites`)
+    return axios.get(`${catURL}/favourites`)
       .then((res) => {
+        dispatch({
+          type: actionTypes.GET_FAVORITES,
+          favorites: res.data.map((fav) => {
+            return {
+              favorite_id: fav.id,
+              image_id: fav.image_id
+            };
+          })
+        });
+
         res.data.forEach((item) => {
-          axios.get(`${catURL}/images/${item.image_id}`)
-            .then((imageRes) => {
-              dispatch({type: actionTypes.GET_FAVORITE, image: {
-                ...imageRes.data,
-                favorite_id: item.id
-              }});
-            })
-            .catch((err) => console.log(err));
-        })
+          dispatch(getImageUrlForFavorites(item.image_id));
+        });
       })
       .catch((err) => console.log(err));
   }
 }
+
+
+export function getImageUrlForFavorites(image_id) {
+  return (dispatch) => {
+    return axios.get(`${catURL}/images/${image_id}`)
+      .then((res) => {
+        dispatch({type: actionTypes.SET_FAVORITE_IMAGE_URL, data: {
+          image_id,
+          url: res.data.url
+        }});
+      })
+      .catch((err) => console.log(err));
+  }
+}
+
 
 export function removeFromFavorites(favorite_id) {
   return (dispatch) => {
