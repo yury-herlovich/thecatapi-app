@@ -113,6 +113,8 @@ describe('actions Favorites', () => {
 
   beforeEach(() => {
     mock = new MockAdapter(axios);
+
+    store.clearActions();
   });
 
   afterEach(() => {
@@ -123,40 +125,56 @@ describe('actions Favorites', () => {
   });
 
 
-  // it('get favorites', () => {
-  //   const favorite_id = 1;
-  //   const image_id = '3a';
+  it('get favorites', () => {
+    const favorite_id = 1;
+    const image_id = '3a';
 
-  //   const responseGetFavorites = [{
-  //     id: favorite_id,
-  //     user_id: "2a",
-  //     image_id
-  //   }];
+    const response = [{
+      id: favorite_id,
+      image_id
+    }];
 
-  //   const responseGetImage = {
-  //     id: image_id,
-  //     url: "http://localhost/test.jpg"
-  //   };
+    const responseImageUrl = {
+      image_id,
+      url: ''
+    };
 
-  //   const expectedActions = [
-  //     {
-  //       type: actionTypes.GET_FAVORITE,
-  //       image: {
-  //         ...responseGetImage,
-  //         favorite_id
-  //       }
-  //     }
-  //   ];
+    const expectedActions = [
+      { type: actionTypes.GET_FAVORITES, favorites: [{ favorite_id, image_id}] }
+    ];
 
-  //   mock
-  //     .onGet(`${actions.catURL}/favourites`).reply(200, responseGetFavorites)
-  //     .onGet(`${actions.catURL}/images/${image_id}`).reply(200, responseGetImage);
+    mock
+      .onGet(`${actions.catURL}/favourites`).reply(200, response)
+      .onGet(`${actions.catURL}/images/${image_id}`).reply(200, responseImageUrl);
 
-  //   return store.dispatch(actions.getFavorites())
-  //     .then(() => {
-  //       expect(store.getActions()).toEqual(expectedActions);
-  //   });
-  // });
+    return store.dispatch(actions.getFavorites()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+
+  it('get image url for favorite image', () => {
+    const url = 'http://localhost/test.jpg';
+    const image_id = '3a';
+
+    let response = {
+      url,
+      image_id
+    };
+
+    const expectedActions = [{
+      type: actionTypes.SET_FAVORITE_IMAGE_URL,
+      data: { url, image_id}
+    }];
+
+    mock
+      .onGet(`${actions.catURL}/images/${image_id}`)
+      .reply(200, response);
+
+    return store.dispatch(actions.getImageUrlForFavorites(image_id)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
 
 
   it('remove from favorites', () => {
