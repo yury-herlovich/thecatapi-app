@@ -37,7 +37,7 @@ export function incrementImagePage () {
 
 export function addToFavorites (image_id) {
   return (dispatch) => {
-    axios.post(`${catURL}/favourites`, { image_id })
+    return axios.post(`${catURL}/favourites`, { image_id })
       .then((res) => {
         dispatch({type: actionTypes.MAKE_FAVORITE, image_id});
       })
@@ -66,7 +66,7 @@ export function getFavorites() {
 
 export function removeFromFavorites(favorite_id) {
   return (dispatch) => {
-    axios.delete(`${catURL}/favourites/${favorite_id}`)
+    return axios.delete(`${catURL}/favourites/${favorite_id}`)
       .then((res) => {
         dispatch({type: actionTypes.REMOVE_FROM_FAVORITES, favorite_id});
       })
