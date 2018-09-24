@@ -55,3 +55,56 @@ describe('action Reset Images Store', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
+
+
+describe('action Reset Images Store', () => {
+  it('reset images store', () => {
+    const expectedActions = [
+      { type: actionTypes.RESET_IMAGE_STORE }
+    ];
+
+    const store = mockStore(ImagesInitialState);
+
+    store.dispatch(actions.resetImageStore())
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+});
+
+
+describe('action set Loading state', () => {
+  it('set Loading state', () => {
+    const expectedActions = [
+      { type: actionTypes.IS_LOADING, isLoading: true }
+    ];
+
+    const store = mockStore(ImagesInitialState);
+
+    store.dispatch(actions.setLoading(true))
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('set Loading finish state', () => {
+    const expectedActions = [
+      { type: actionTypes.IS_LOADING, isLoading: false }
+    ];
+
+    const store = mockStore(ImagesInitialState);
+
+    store.dispatch(actions.setLoading(false))
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+});
+
+
+describe('action increment image page', () => {
+  it('reset images store', () => {
+    const expectedActions = [
+      { type: actionTypes.INCREMENT_IMAGE_PAGE }
+    ];
+
+    const store = mockStore(ImagesInitialState);
+
+    store.dispatch(actions.incrementImagePage())
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+});
