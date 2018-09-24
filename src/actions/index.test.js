@@ -9,7 +9,7 @@ import * as actionTypes from '../constants/ActionTypes';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('actions', () => {
+describe('action Get Images', () => {
   let mock;
   beforeEach(() => {
     mock = new MockAdapter(axios);
@@ -40,4 +40,18 @@ describe('actions', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
-})
+});
+
+
+describe('action Reset Images Store', () => {
+  it('reset images store', () => {
+    const expectedActions = [
+      { type: actionTypes.RESET_IMAGE_STORE }
+    ];
+
+    const store = mockStore(ImagesInitialState);
+
+    store.dispatch(actions.resetImageStore())
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+});
