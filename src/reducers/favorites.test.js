@@ -1,6 +1,5 @@
-import favoritesReducer from './favorites';
+import favoritesReducer, { initialState } from './favorites';
 import * as actionTypes from '../constants/ActionTypes';
-import { initialState } from './favorites';
 
 describe('Favorites store', () => {
   it('default state', () => {

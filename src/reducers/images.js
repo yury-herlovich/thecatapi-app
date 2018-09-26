@@ -17,6 +17,7 @@ export default (state=initialState, action) => {
       return {
         ...state,
         images: [],
+        isLoading: false,
         page: 0
       }
     case actionTypes.IS_LOADING:
